@@ -14,6 +14,7 @@ const News = (props) => {
   const updateNews= async() =>{
     props.setprogress(10);
     const url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=701d7a202c0647ff8225389ba5c70f3c&page=${page}&pageSize=${props.pageSize}`;
+    
     props.setprogress(40);
     setloding(true)
     let data = await fetch(url);
@@ -32,9 +33,18 @@ const News = (props) => {
     const capitalizeFirstLetter = (string) => {
     return string.charAt(0).toUpperCase() + string.slice(1);
     };
-  const fetchMoreData = async () => {
-    
+    // const handlePrevClick = async () => {
+    //     setPage(page-1)
+    //     updateNews();
+    // }
+
+    // const handleNextClick = async () => { 
+    //     setPage(page+1)
+    //     updateNews()
+    // }
+  const fetchMoreData = async () => {  
     const url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=701d7a202c0647ff8225389ba5c70f3c&page=${page + 1}&pageSize=${props.pageSize}`;
+    // const uniqueData = [new Set(url)];
     setPage(page +1)
     let data = await fetch(url);
     let pasedData = await data.json();
@@ -43,8 +53,8 @@ const News = (props) => {
   };
 
     return (
-      <>
-        <h1 className="text-center mt-4">{`DainikBhaskar - Top ${capitalizeFirstLetter(props.category)} headlines`}</h1>
+      <div style= {{background: props.mode === 'light' ? 'white' : '#1d1d1e', color: props.mode === 'light' ? 'black' : 'white'}}>
+        <h1 className="text-center mp-4">{`DainikBhaskar - Top ${capitalizeFirstLetter(props.category)} headlines`}</h1>
         {loding && <Spinner />}
         <InfiniteScroll dataLength={articles.length} next={fetchMoreData} hasMore={articles.length !== totalResults} loader={!loding &&<Spinner />}>
           <div className="container">
@@ -55,14 +65,14 @@ const News = (props) => {
                     <div className="col-md-8" style={{ width: "100%" }} key={element.url}>
                       <Newsitem newsurl={element.url} discruption={element.description} title={element.title} urlImage={element.urlToImage}
                         publishedAt={element.publishedAt} author={element.author} content={element.content} source={element.source.name}
-                        category={props.category}/>
+                        category={props.category} mode= {props.mode} toglemode = {props.toglemode}/>
                     </div>);
                 })}
               </div>
             </div>
           </div>
         </InfiniteScroll>
-      </>
+      </div>
     );
 }
 News.defaultProps = {country: "in", pageSize: 10, category: "business"};
