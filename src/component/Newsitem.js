@@ -13,9 +13,9 @@ const Newsitem = (props) =>{
           <div className="col-md-8">
             <div className="card-body">
               <h5 className="card-title">{title}</h5>
-              <p className="card-text">{discruption ? discruption : "..."}</p>
-              <p className="card-text">{content ? content : "..."}</p>
-              <p className="card-text"><small className="text-muted"><b>author </b>{author? author : "Unknown"} <b> published at </b> {new Date(publishedAt).toGMTString()}</small></p>
+              <p className="card-text">{discruption ? discruption : ""}</p>
+              <p className="card-text">{content ? content : ""}</p>
+              <p className="card-text"><small className="card-text"><b>author </b>{author? author : "Unknown"} <b> published at </b> {new Date(publishedAt).toGMTString()}</small></p>
               <a href={newsurl ? newsurl : ""} className={`btn btn-sm btn-${props.mode === 'light' ? 'dark' : 'light'}`} target='_blank' rel='noreferrer'>Read More</a>
             </div>
           </div>
