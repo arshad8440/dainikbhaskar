@@ -51,10 +51,11 @@ const News = (props) => {
     setArticles(articles.concat(pasedData.articles));
     settotalResults(pasedData.totalResults);
   };
+  
 
     return (
-      <div style= {{background: props.mode === 'light' ? 'white' : '#1d1d1e', color: props.mode === 'light' ? 'black' : 'white'}}>
-        <h1 className="text-center mp-4">{`DainikBhaskar - Top ${capitalizeFirstLetter(props.category)} headlines`}</h1>
+      <div className="mt-4" style= {{background: props.mode === 'light' ? 'white' : '#1d1d1e', color: props.mode === 'light' ? 'black' : 'white'}}>
+        <h1 className="text-center pt-5">{`DainikBhaskar - Top ${capitalizeFirstLetter(props.category)} headlines`}</h1>
         {loding && <Spinner />}
         <InfiniteScroll dataLength={articles.length} next={fetchMoreData} hasMore={articles.length !== totalResults} loader={!loding &&<Spinner />}>
           <div className="container">
